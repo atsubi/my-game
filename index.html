@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Mini Game</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #222;
+      color: white;
+      font-family: sans-serif;
+    }
+    button {
+      padding: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="increment()">Score: <span id="score">0</span></button>
+
+  <script>
+    let score = 0;
+
+    function increment() {
+      score++;
+      document.getElementById("score").textContent = score;
+    }
+  </script>
+</body>
+</html>
