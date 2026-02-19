@@ -40,10 +40,12 @@
     // Ballクラス
     // ----------------------------
     class Ball {
-      constructor(x, y, radius = 20) {
+      constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.radius = radius;
+
+        // 画面幅の5%を半径にする
+        this.radius = canvas.width * 0.05;
         this.color = getRandomColor();
       }
 
