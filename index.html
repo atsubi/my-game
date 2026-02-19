@@ -21,7 +21,6 @@
     const canvas = document.getElementById("game");
     const ctx = canvas.getContext("2d");
 
-    // 画面サイズをウィンドウに合わせる
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -30,7 +29,7 @@
     resize();
 
     // ----------------------------
-    // Ballクラス（ドメイン）
+    // Ballクラス
     // ----------------------------
     class Ball {
       constructor(x, y, radius = 20) {
@@ -46,11 +45,16 @@
         ctx.fill();
         ctx.closePath();
       }
+
+      // クリック判定
+      contains(px, py) {
+        const dx = this.x - px;
+        const dy = this.y - py;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance <= this.radius;
+      }
     }
 
-    // ----------------------------
-    // ゲーム管理
-    // ----------------------------
     const balls = [];
 
     canvas.addEventListener("click", (e) => {
@@ -58,12 +62,18 @@
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
+      // 既存ボールを後ろからチェック（安全に削除するため）
+      for (let i = balls.length - 1; i >= 0; i--) {
+        if (balls[i].contains(x, y)) {
+          balls.splice(i, 1);
+          return; // 消したら終了
+        }
+      }
+
+      // どのボールもクリックしていなければ生成
       balls.push(new Ball(x, y));
     });
 
-    // ----------------------------
-    // メインループ
-    // ----------------------------
     function loop() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
