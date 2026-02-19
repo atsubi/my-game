@@ -28,6 +28,14 @@
     window.addEventListener("resize", resize);
     resize();
 
+    // 🎨 使用する5色
+    const COLORS = ["red", "blue", "yellow", "green", "orange"];
+
+    function getRandomColor() {
+      const index = Math.floor(Math.random() * COLORS.length);
+      return COLORS[index];
+    }
+
     // ----------------------------
     // Ballクラス
     // ----------------------------
@@ -36,12 +44,13 @@
         this.x = x;
         this.y = y;
         this.radius = radius;
+        this.color = getRandomColor();
       }
 
       draw(ctx) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "skyblue";
+        ctx.fillStyle = this.color;
         ctx.fill();
       }
 
@@ -57,8 +66,6 @@
     // ----------------------------
     class Sparkle {
       constructor(x, y) {
-        this.x = x;
-        this.y = y;
         this.particles = [];
 
         for (let i = 0; i < 12; i++) {
@@ -87,7 +94,7 @@
       draw(ctx) {
         for (const p of this.particles) {
           ctx.globalAlpha = p.life / 30;
-          ctx.fillStyle = "yellow";
+          ctx.fillStyle = "white";
           ctx.fillRect(p.x, p.y, 3, 3);
         }
         ctx.globalAlpha = 1;
@@ -106,10 +113,8 @@
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // キラキラ追加
       effects.push(new Sparkle(x, y));
 
-      // ボール削除チェック
       for (let i = balls.length - 1; i >= 0; i--) {
         if (balls[i].contains(x, y)) {
           balls.splice(i, 1);
@@ -130,7 +135,6 @@
       for (let i = effects.length - 1; i >= 0; i--) {
         effects[i].update();
         effects[i].draw(ctx);
-
         if (effects[i].isDead()) {
           effects.splice(i, 1);
         }
