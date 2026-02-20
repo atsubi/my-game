@@ -61,6 +61,13 @@
         const dy = this.y - py;
         return Math.sqrt(dx * dx + dy * dy) <= this.radius;
       }
+      
+      intersects(other) {
+        const dx = this.x - other.x;
+        const dy = this.y - other.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < this.radius + other.radius;
+      }
     }
 
     // ----------------------------
@@ -140,16 +147,23 @@
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      effects.push(new Sparkle(x, y));
-
       for (let i = balls.length - 1; i >= 0; i--) {
         if (balls[i].contains(x, y)) {
           balls.splice(i, 1);
+          effects.push(new Sparkle(x, y));
           return;
         }
       }
+      const newBall = new Ball(x, y);
 
-      balls.push(new Ball(x, y));
+      for (const ball of balls) {
+        if (newBall.intersects(ball)) {
+          return; // 重なるなら生成しない
+        }
+      }
+      
+      effects.push(new Sparkle(x, y));
+      balls.push(newBall);
     });
 
     function loop() {
