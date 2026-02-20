@@ -29,8 +29,15 @@
     resize();
 
     // 🎨 使用する5色
-    const COLORS = ["red", "blue", "yellow", "green", "orange"];
-
+    //const COLORS = ["red", "blue", "yellow", "green", "orange"];
+    const COLORS = [
+      "rgb(255,0,0)",
+      "rgb(0,0,255)",
+      "rgb(255,255,0)",
+      "rgb(0,128,0)",
+      "rgb(255,165,0)"
+    ];
+    
     function getRandomColor() {
       const index = Math.floor(Math.random() * COLORS.length);
       return COLORS[index];
