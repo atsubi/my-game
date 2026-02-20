@@ -68,6 +68,19 @@
         ctx.fillStyle = this.color;
         ctx.fill()
         ctx.closePath();
+        
+        // 上部の光沢ハイライト
+        ctx.beginPath();
+        ctx.arc(
+          this.x - this.radius * 0.3,
+          this.y - this.radius * 0.3,
+          this.radius * 0.4,
+          0,
+          Math.PI * 2
+        );
+        ctx.fillStyle = "rgba(255,255,255,0.25)";
+        ctx.fill();
+        ctx.closePath();
       }
 
       contains(px, py) {
