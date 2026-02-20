@@ -63,37 +63,10 @@
       }
 
       draw(ctx) {
-        // 立体感グラデーション
-        const gradient = ctx.createRadialGradient(
-          this.x - this.radius * 0.3,
-          this.y - this.radius * 0.3,
-          this.radius * 0.2,
-          this.x,
-          this.y,
-          this.radius
-        );
-
-        gradient.addColorStop(0, "white");
-        gradient.addColorStop(0.2, this.color);
-        gradient.addColorStop(1, shadeColor(this.color, -40));
-
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-        ctx.closePath();
-
-        // 上部の光沢ハイライト
-        ctx.beginPath();
-        ctx.arc(
-          this.x - this.radius * 0.3,
-          this.y - this.radius * 0.3,
-          this.radius * 0.4,
-          0,
-          Math.PI * 2
-        );
-        ctx.fillStyle = "rgba(255,255,255,0.25)";
-        ctx.fill();
+        ctx.fillStyle = this.color;
+        ctx.fill()
         ctx.closePath();
       }
 
