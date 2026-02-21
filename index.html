@@ -47,7 +47,7 @@
       const canvasTmp = document.createElement("canvas");
       const ctxTmp = canvasTmp.getContext("2d");
       ctxTmp.fillStyle = color;
-      const rgb = ctxTmp.fillStyle.match(/\d+/g).map(Number);
+      const rgb = color.match(/\d+/g).map(Number);
 
       const r = Math.min(255, Math.max(0, rgb[0] + percent));
       const g = Math.min(255, Math.max(0, rgb[1] + percent));
