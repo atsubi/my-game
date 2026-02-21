@@ -43,9 +43,6 @@
     }
     
     function shadeColor(color, percent) {
-      const canvasTmp = document.createElement("canvas");
-      const ctxTmp = canvasTmp.getContext("2d");
-      ctxTmp.fillStyle = color;
       const rgb = color.match(/\d+/g).map(Number);
 
       const r = Math.min(255, Math.max(0, rgb[0] + percent));
