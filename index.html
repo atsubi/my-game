@@ -29,7 +29,6 @@
     resize();
 
     // 🎨 使用する5色
-    //const COLORS = ["red", "blue", "yellow", "green", "orange"];
     const COLORS = [
       "rgb(255,0,0)",
       "rgb(0,0,255)",
@@ -60,6 +59,11 @@
     // Ballクラス
     // ----------------------------
     class Ball {
+      static HIGHLIGHT_OFFSET_FACTOR = -0.3;
+      static GRADIENT_INNER_RADIUS_FACTOR = 0.2;
+      static HIGHLIGHT_RADIUS_FACTOR = 0.4;
+      static SHINE_ALPHA = 0.25;
+
       constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -70,12 +74,14 @@
       }
 
       draw(ctx) {
+        const highlightOffsetX = this.radius * Ball.HIGHLIGHT_OFFSET_FACTOR;
+        const highlightOffsetY = this.radius * Ball.HIGHLIGHT_OFFSET_FACTOR;
         
         //グラデーション
         const gradient = ctx.createRadialGradient(
-          this.x - this.radius * 0.3,
-          this.y - this.radius * 0.3,
-          this.radius * 0.2,
+          this.x + highlightOffsetX,
+          this.y + highlightOffsetY,
+          this.radius * Ball.GRADIENT_INNER_RADIUS_FACTOR,
           this.x,
           this.y,
           this.radius
@@ -94,13 +100,13 @@
         // 上部の光沢ハイライト
         ctx.beginPath();
         ctx.arc(
-          this.x - this.radius * 0.3,
-          this.y - this.radius * 0.3,
-          this.radius * 0.4,
+          this.x + highlightOffsetX,
+          this.y + highlightOffsetY,
+          this.radius * Ball.HIGHLIGHT_RADIUS_FACTOR,
           0,
           Math.PI * 2
         );
-        ctx.fillStyle = "rgba(255,255,255,0.25)";
+        ctx.fillStyle = `rgba(255,255,255,${Ball.SHINE_ALPHA})`;
         ctx.fill();
         ctx.closePath();
       }
