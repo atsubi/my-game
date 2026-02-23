@@ -216,6 +216,7 @@
 
     const balls = [];
     const effects = [];
+    let removedBallCount = 0;
 
     canvas.addEventListener("click", (e) => {
       const rect = canvas.getBoundingClientRect();
@@ -225,6 +226,7 @@
       for (let i = balls.length - 1; i >= 0; i--) {
         if (balls[i].contains(x, y)) {
           balls.splice(i, 1);
+          removedBallCount++;
           effects.push(new Sparkle(x, y));
           return;
         }
@@ -295,6 +297,12 @@
           effects.splice(i, 1);
         }
       }
+
+      // 消えたボールの数を表示
+      ctx.font = "24px Arial";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText(`消えたボール: ${removedBallCount}`, canvas.width / 2, canvas.height - 30);
 
       requestAnimationFrame(loop);
     }
