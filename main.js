@@ -84,7 +84,7 @@ function autoGenerateBall() {
   }
 
   // 1〜3秒後に次の自動生成を予約
-  const delay = Math.random() * 2000 + 1000;
+  const delay = Math.random() * 500 + 500; // 0.5秒から1秒間隔
   setTimeout(autoGenerateBall, delay);
 }
 
